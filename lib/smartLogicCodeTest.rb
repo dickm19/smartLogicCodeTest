@@ -13,7 +13,6 @@ require 'json'
       end
 
       def remove_extra_characters(data)
-        # puts "before", data
         data.map do | item |
           if item == "|"
             data.delete(item)
@@ -22,7 +21,6 @@ require 'json'
             data[index] = item.tr(',', '')
           end
         end
-        # puts "after", data
         return data
       end
 
@@ -30,44 +28,80 @@ require 'json'
         data = remove_extra_characters(data)
         if data.length % 5 == 0
           array = data.each_slice(5).to_a
+          count = 0
+          array_of_hashes = []
+          while count < array.length do
+            person_object = {}
+            person_object["last_name"] = array[count][0]
+            person_object["first_name"] = array[count][1]
+            person_object["gender"] = array[count][2]
+            person_object["birth"] = array[count][4]
+            person_object["color"] = array[count][3]
+            count += 1
+            array_of_hashes.push(person_object)
+          end
         elsif data.length % 6 == 0
           array = data.each_slice(6).to_a
+          count = 0
+          array_of_hashes = []
+          while count < array.length do
+            person_object = {}
+            person_object["last_name"] = array[count][0]
+            person_object["first_name"] = array[count][1]
+            person_object["middle_name"] = array[count][2]
+            person_object["gender"] = array[count][3]
+            # checking if the item at index 5 contains an integer
+            if array[count][5] =~ /\d/
+              person_object["birth"] = array[count][5]
+              person_object["color"] = array[count][4]
+            else
+              person_object["birth"] = array[count][4]
+              person_object["color"] = array[count][5]
+            end
+            array_of_hashes.push(person_object)
+            count += 1
+          end
         end
-
-        puts array[0]
+        return array_of_hashes
       end
 
-      def sort_by_gender(unsorted)
-        # unsorted_array = unsorted.split
-        # puts(unsorted_array)
-        puts unsorted
+      def get_data()
+        endpoints = ["space", "comma", "pipe"]
+        array = []
+        endpoints.map do |endpoint|
+          data = turn_data_into_objects(parseUrl("https://smartlogic.io/about/community/apprentice/code-test/#{endpoint}.txt"))
+          array.concat(data)
+        end
+        return array
+      end
+
+      def sort_by_last_name(array)
+        return array.sort_by {|person| person["last_name"]}
+      end
+
+      def sort_by_gender(array)
+        women = []
+        men = []
+        array.map do |person| 
+          if person["gender"] == "F" || person["gender"] == "Female"
+            women.push(person)
+          elsif person["gender"] == "M" || person["gender"] == "Male"
+            men.push(person)
+          end
+        end
+        sorted_by_gender = []
+        sorted_by_gender.concat(sort_by_last_name(women), sort_by_last_name(men) )
+        return sorted_by_gender
+      end
+
+      def sort_by_birth_date(array)
+        
       end
 
 
-      space = parseUrl("https://smartlogic.io/about/community/apprentice/code-test/space.txt")
-      comma = parseUrl("https://smartlogic.io/about/community/apprentice/code-test/comma.txt")
-      pipe = parseUrl("https://smartlogic.io/about/community/apprentice/code-test/pipe.txt")
-
-      # raw
-      # puts "S P A C E:"
-      # puts space
-      # puts "C O M M A:"
-      # puts comma
-      # puts "P I P E:"
-      # puts pipe
-
-      # sorted by gender
-      # puts "SPACE SORTED BY GENDER"
-      # sort_by_gender(space)
-      # puts "COMMA SORTED BY GENDER"
-      # sort_by_gender(comma)
-      # puts "PIPE SORTED BY GENDER"
-      # sort_by_gender(pipe)
-
-
-      # turn_data_into_objects(space)
-      # turn_data_into_objects(comma)
-      # turn_data_into_objects(pipe)
-
-    # remove_extra_characters(comma)
+  data = get_data()
+      
   
+  sort_by_gender(data)
+
+  puts sort_by_birth_date(data)
