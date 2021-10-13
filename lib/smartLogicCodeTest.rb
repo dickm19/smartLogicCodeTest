@@ -137,12 +137,15 @@ require 'json'
 
 
   data = get_data()
-      
-  puts "OUTPUT 1:"
-  puts sort_by_gender(data)
 
-  puts "OUTPUT 2:"
-  puts sort_by_birthdate(data)
+puts " "
+puts "OUTPUT 1:"
+puts sort_by_gender(data)
+puts " "
 
-  puts "OUTPUT 3:"
-  puts sort_by_last_name_descending(data)
+puts "OUTPUT 2:"
+puts sort_by_birthdate(data)
+puts " "
+
+puts "OUTPUT 3:"
+puts sort_by_last_name_descending(data)
