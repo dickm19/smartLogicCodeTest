@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/smartLogicCodeTest/version"
+require_relative "lib/smartLogicCodeTest"
 
 Gem::Specification.new do |spec|
   spec.name          = "smartLogicCodeTest"
-  spec.version       = SmartLogicCodeTest::VERSION
+  spec.version       = 1
   spec.authors       = ["dickm19"]
   spec.email         = ["maryclairedick@gmail.com"]
 
@@ -29,7 +29,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
+  spec.add_dependency "rspec"
+  spec.add_dependency "json"
+  spec.add_dependency "bundler"
+
+
+
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
