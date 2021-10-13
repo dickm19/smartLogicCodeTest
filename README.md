@@ -4,5 +4,5 @@
 
 run `bundle install`
 
-## To Run The App
+## To Run Tests & View Output
 run `bundle exec rspec`
