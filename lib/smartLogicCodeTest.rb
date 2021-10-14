@@ -24,7 +24,7 @@ require 'json'
         return data
       end
 
-      def convert_data_to_objects(data)
+      def convert_data_to_hashes(data)
         data = remove_extra_characters(data)
 
         # checking if the length of the data array is divisible by 5
@@ -35,14 +35,14 @@ require 'json'
 
           array_of_hashes = []
 
-          array.map do |person|
-            person_object = {}
-            person_object["last_name"] = person[0]
-            person_object["first_name"] = person[1]
-            person_object["gender"] = person[2]
-            person_object["birth"] = person[4]
-            person_object["color"] = person[3]
-            array_of_hashes.push(person_object)
+          array.map do | person |
+            person_hash = {}
+            person_hash["last_name"] = person[0]
+            person_hash["first_name"] = person[1]
+            person_hash["gender"] = person[2]
+            person_hash["birth"] = person[4]
+            person_hash["color"] = person[3]
+            array_of_hashes.push(person_hash)
           end
 
         # checking if the length of the data array is divisible by 6
@@ -53,22 +53,22 @@ require 'json'
 
           array_of_hashes = []
 
-          array.map do |person|
-            person_object = {}
-            person_object["last_name"] = person[0]
-            person_object["first_name"] = person[1]
-            person_object["middle_name"] = person[2]
-            person_object["gender"] = person[3]
+          array.map do | person |
+            person_hash = {}
+            person_hash["last_name"] = person[0]
+            person_hash["first_name"] = person[1]
+            person_hash["middle_name"] = person[2]
+            person_hash["gender"] = person[3]
 
             # checking if the item at index 5 contains an integer
             if person[5] =~ /\d/
-              person_object["birth"] = person[5]
-              person_object["color"] = person[4]
+              person_hash["birth"] = person[5]
+              person_hash["color"] = person[4]
             else
-              person_object["birth"] = person[4]
-              person_object["color"] = person[5]
+              person_hash["birth"] = person[4]
+              person_hash["color"] = person[5]
             end
-            array_of_hashes.push(person_object)
+            array_of_hashes.push(person_hash)
           end
         end
         return array_of_hashes
@@ -77,15 +77,15 @@ require 'json'
       def get_data()
         endpoints = ["space", "comma", "pipe"]
         array = []
-        endpoints.map do |endpoint|
-          data = convert_data_to_objects(parseUrl("https://smartlogic.io/about/community/apprentice/code-test/#{endpoint}.txt"))
+        endpoints.map do | endpoint |
+          data = convert_data_to_hashes(parseUrl("https://smartlogic.io/about/community/apprentice/code-test/#{endpoint}.txt"))
           array.concat(data)
         end
         return array
       end
 
       def sort_by_last_name_ascending(data)
-        return data.sort_by {|person| person["last_name"]}
+        return data.sort_by {| person | person["last_name"]}
       end
 
       def sort_by_last_name_descending(data)
@@ -96,7 +96,7 @@ require 'json'
       def sort_by_gender(data)
         women = []
         men = []
-        data.map do |person| 
+        data.map do | person | 
           if person["gender"] == "F" || person["gender"] == "Female"
             person["gender"] = "Female"
             women.push(person)
@@ -110,7 +110,7 @@ require 'json'
       end
 
       def sort_by_birthdate(data)
-        sorted = data.sort_by { |person, v| 
+        sorted = data.sort_by { | person, v | 
         [if person["birth"].include?("-")
           person["birth"].split('-')[2].to_i
         elsif person["birth"].include?("/")
@@ -123,7 +123,7 @@ require 'json'
 
       def convert_output_to_string(data)
         array = []
-        data.map do |person|
+        data.map do | person |
           person_string = ''
           if person["birth"].include?("-")
             person["birth"] = person["birth"].split("-").join("/")
