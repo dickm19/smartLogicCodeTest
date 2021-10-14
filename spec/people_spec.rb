@@ -1,14 +1,16 @@
 require "./lib/smartLogicCodeTest"
 
-data = [{"last_name"=>"Kournikova", "first_name"=>"Anna", "middle_name"=>"F", "gender"=>"F", "birth"=>"6-3-1975", "color"=>"Red"},
-{"last_name"=>"Hingis", "first_name"=>"Martina", "middle_name"=>"M", "gender"=>"F", "birth"=>"4-2-1979", "color"=>"Green"},
-{"last_name"=>"Seles", "first_name"=>"Monica", "middle_name"=>"H", "gender"=>"F", "birth"=>"12-2-1973", "color"=>"Black"},
-{"last_name"=>"Abercrombie", "first_name"=>"Neil", "gender"=>"Male", "birth"=>"2/13/1943", "color"=>"Tan"},
-{"last_name"=>"Bishop", "first_name"=>"Timothy", "gender"=>"Male", "birth"=>"4/23/1967", "color"=>"Yellow"},
-{"last_name"=>"Kelly", "first_name"=>"Sue", "gender"=>"Female", "birth"=>"7/12/1959", "color"=>"Pink"},
-{"last_name"=>"Smith", "first_name"=>"Steve", "middle_name"=>"D", "gender"=>"M", "birth"=>"3-3-1985", "color"=>"Red"},
-{"last_name"=>"Bonk", "first_name"=>"Radek", "middle_name"=>"S", "gender"=>"M", "birth"=>"6-3-1975", "color"=>"Green"},
-{"last_name"=>"Bouillon", "first_name"=>"Francis", "middle_name"=>"G", "gender"=>"M", "birth"=>"6-3-1975", "color"=>"Blue"}]
+data = [
+    {"last_name"=>"Kournikova", "first_name"=>"Anna", "middle_name"=>"F", "gender"=>"F", "birth"=>"6-3-1975", "color"=>"Red"},
+    {"last_name"=>"Hingis", "first_name"=>"Martina", "middle_name"=>"M", "gender"=>"F", "birth"=>"4-2-1979", "color"=>"Green"},
+    {"last_name"=>"Seles", "first_name"=>"Monica", "middle_name"=>"H", "gender"=>"F", "birth"=>"12-2-1973", "color"=>"Black"},
+    {"last_name"=>"Abercrombie", "first_name"=>"Neil", "gender"=>"Male", "birth"=>"2/13/1943", "color"=>"Tan"},
+    {"last_name"=>"Bishop", "first_name"=>"Timothy", "gender"=>"Male", "birth"=>"4/23/1967", "color"=>"Yellow"},
+    {"last_name"=>"Kelly", "first_name"=>"Sue", "gender"=>"Female", "birth"=>"7/12/1959", "color"=>"Pink"},
+    {"last_name"=>"Smith", "first_name"=>"Steve", "middle_name"=>"D", "gender"=>"M", "birth"=>"3-3-1985", "color"=>"Red"},
+    {"last_name"=>"Bonk", "first_name"=>"Radek", "middle_name"=>"S", "gender"=>"M", "birth"=>"6-3-1975", "color"=>"Green"},
+    {"last_name"=>"Bouillon", "first_name"=>"Francis", "middle_name"=>"G", "gender"=>"M", "birth"=>"6-3-1975", "color"=>"Blue"}
+]
 
 
 describe "sort_by_gender" do

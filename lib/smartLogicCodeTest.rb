@@ -29,19 +29,20 @@ require 'json'
 
         # checking if the length of the data array is divisible by 5
         if data.length % 5 == 0
+
           # splitting data into 5 equal arrays
           array = data.each_slice(5).to_a
-          count = 0
+
           array_of_hashes = []
-          while count < array.length do
+
+          array.map do |person|
             person_object = {}
-            person_object["last_name"] = array[count][0]
-            person_object["first_name"] = array[count][1]
-            person_object["gender"] = array[count][2]
-            person_object["birth"] = array[count][4]
-            person_object["color"] = array[count][3]
+            person_object["last_name"] = person[0]
+            person_object["first_name"] = person[1]
+            person_object["gender"] = person[2]
+            person_object["birth"] = person[4]
+            person_object["color"] = person[3]
             array_of_hashes.push(person_object)
-            count += 1
           end
 
         # checking if the length of the data array is divisible by 6
@@ -49,25 +50,25 @@ require 'json'
 
           # splitting data into 6 equal arrays
           array = data.each_slice(6).to_a
-          count = 0
+
           array_of_hashes = []
-          while count < array.length do
+
+          array.map do |person|
             person_object = {}
-            person_object["last_name"] = array[count][0]
-            person_object["first_name"] = array[count][1]
-            person_object["middle_name"] = array[count][2]
-            person_object["gender"] = array[count][3]
+            person_object["last_name"] = person[0]
+            person_object["first_name"] = person[1]
+            person_object["middle_name"] = person[2]
+            person_object["gender"] = person[3]
 
             # checking if the item at index 5 contains an integer
-            if array[count][5] =~ /\d/
-              person_object["birth"] = array[count][5]
-              person_object["color"] = array[count][4]
+            if person[5] =~ /\d/
+              person_object["birth"] = person[5]
+              person_object["color"] = person[4]
             else
-              person_object["birth"] = array[count][4]
-              person_object["color"] = array[count][5]
+              person_object["birth"] = person[4]
+              person_object["color"] = person[5]
             end
             array_of_hashes.push(person_object)
-            count += 1
           end
         end
         return array_of_hashes
@@ -97,8 +98,10 @@ require 'json'
         men = []
         data.map do |person| 
           if person["gender"] == "F" || person["gender"] == "Female"
+            person["gender"] = "Female"
             women.push(person)
           elsif person["gender"] == "M" || person["gender"] == "Male"
+            person["gender"] = "Male"
             men.push(person)
           end
         end
@@ -125,11 +128,7 @@ require 'json'
           if person["birth"].include?("-")
             person["birth"] = person["birth"].split("-").join("/")
           end
-          if person["gender"] == "F" || person["gender"] == "Female"
-            person_string = person["last_name"] + " " +  person["first_name"] + " " +  "Female" + " " +  person["birth"] + " " +  person["color"]
-          elsif person["gender"] == "M" || person["gender"] == "Male"
-            person_string = person["last_name"] + " " +  person["first_name"] + " " +  "Male" + " " +  person["birth"] + " " +  person["color"]
-          end
+          person_string = person["last_name"] + " " +  person["first_name"] + " " +  person["gender"] + " " +  person["birth"] + " " +  person["color"]
           array.push(person_string)
         end
         return array
